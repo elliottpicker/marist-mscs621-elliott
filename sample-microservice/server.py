@@ -100,6 +100,26 @@ def internal_server_error(error):
 def index():
     """ Send back the home page """
     return app.send_static_file('index.html')
+	
+@app.route('/test')
+def indextest():
+    """ Send back the home page """
+    return app.send_static_file('indextest.html')	
+	
+@app.route('/chat')
+def chat():
+    """ Send back the home page """
+    return app.send_static_file('chat.html')
+
+@app.route('/translate')
+def translate():
+    """ Send back the home page """
+    return app.send_static_file('translate.html')
+
+@app.route('/speak')
+def speak():
+    """ Send back the home page """
+    return app.send_static_file('speak.html')	
 
 ######################################################################
 # LIST ALL DATA
@@ -168,6 +188,36 @@ def create_data():
     message = data.serialize()
     return make_response(jsonify(message), HTTP_201_CREATED,
                          {'Location': url_for('get_data', data_id=data.id, _external=True)})
+						 
+######################################################################
+# ADD A NEW MEssage
+######################################################################
+@app.route('/message', methods=['POST'])
+def create_message():
+    """
+    Creates a Data
+
+    This endpoint will create a Data based the data in the body that is posted
+    or data that is sent via an html form post.
+    """
+    item = {}
+    # Check for form submission data
+    if request.headers.get('Content-Type') == 'application/x-www-form-urlencoded':
+        app.logger.info('Processing FORM data')
+        item = {
+            'name': request.form['name'],
+            'category': request.form['category'],
+            'available': request.form['available'].lower() in ['true', '1', 't']
+        }
+    else:
+        app.logger.info('Processing JSON data')
+        item = request.get_json()
+
+    data = Data()
+    data.deserialize(item)
+    data.save()
+    message = data.serialize()
+    return app.send_static_file('chat.html')						 
 
 ######################################################################
 # UPDATE AN EXISTING DATA
