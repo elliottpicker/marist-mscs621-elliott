@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Elliott Chat - Speak</title>
+    <title>Elliott Chat - Translate</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,11 +14,18 @@ Welcome to Elliott Chat
 <p>
 </p>
 
-               This will speak your message
+ This will do text-to-speech.
+              
 
+	
+		<input id = "trbox" type = "textbox" name = "msgtext" value ='{{msgtxt['category']}}'>
+		<button id="submit">Text-to-Speech</button>
+	</form>
+			  
   </body>
 </html>
 
 <script>
 
+$("body").append(document.getElementById('msgtext').value);
 </script>

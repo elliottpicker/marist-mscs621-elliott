@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Elliott Chat</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="static/stylesheets/style.css">
+    <script src="static/javascripts/jquery-3.3.1.min.js"></script>
+  </head>
+  <body>
+  <p class='description'>
+Welcome to Elliott Chat
+<p>
+</p>
+
+                New Message:
+
+                    </div>
+                    <div>
+                      <label for="category">Message</label>
+                      
+                    </div>
+                    <div>
+                      <button id="submit">Send Message</button>
+                    </div>
+                </form>
+                
+               
+<table>
+<thead><tr><th width="25%">User:</th><th width="60%">Message:</th><th width="15%">Actions</th></tr></thead>
+<tbody>
+<tr bgcolor="red">
+                <form id="create_data" action="/message" method="post" enctype="application/json">
+                    <input type="hidden" name="available" value="True" />
+                    <input type="hidden" name="name" id="name" value="{{chatuser}}">
+                      
+    <td>{{chatuser}}</td>
+    <td><input name="category" id="category" value="Hello there!"></td>
+    <td><button id="submit">Send Message</button></td>
+    </form>
+
+</tr>
+
+{%for msg in messagetxt%}
+<tr>
+	<td>
+{{msg.name}}
+</td>
+<td>
+{{msg.category}}
+</td>	
+<td>
+<form action="/translate"><input type="hidden" name="msgid" value= {{msg.id}} /><input type="submit" value="Translate this message"></form>
+<form action="/speak"><input type="hidden" name="msgid" value= {{msg.id}} /><input type="submit" value="Speak this message"></form>
+</td>
+</tr>
+{%endfor%}
+</tbody>
+</table>
+  </body>
+</html>
+
+<script>
+//jQuery.fn.reverse = [].reverse;
+//$("body").append("<table><tr>");
+//$.getJSON('/data', { get_param: '' }, function(data) {
+//    $.each(data, function(index, element) {
+//	//	$("body").append("<td>");
+//	//	$('body').append($('<b>', {text: element.name}));
+//	//	$("body").append("</td><td>");
+//	//	$('body').append($('<i>', {text: element.category}));
+//		
+//	//	$("p").append("<b><a href='/chat'>translate this message</a></b><b><a href='/chat'>speak this message</a></b></td></tr><tr>");
+//	//	$("body").append("</b><br><br>");
+//	
+//	        var $tr = $('<tr>').append(
+//            $('<td>').text(element.name),
+//            $('<td>').text(element.category),
+//			$('<td>').text(element.timestamp),
+//			//"<td> <a href='/translate?id=elliott'>translate this message</a></td><td><a href='/speak'>speak this message</a></td>"
+//			
+//			'<td><form action="/translate"><input type="hidden" name="msgtext" value='+element.category+' /><input type="submit" value="Translate this message"></form></td>'
+//			
+//			
+//			
+//			
+//        ).appendTo('body');
+//        console.log($tr.wrap('<p>').html());
+//
+//		
+//    });
+//});
+//$("body").append("</tr></table>");
+</script>

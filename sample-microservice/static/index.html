@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hybrid Cloud Demo RESTful Service</title>
+    <title>Elliott Chat - Login</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,43 +11,20 @@
   <body>
       <table>
 		<tr>
-            <td style= "width:30%;">
-              <img class = "newappIcon" src="static/images/newapp-icon.png">
-            </td>
-			<td>
-				<h1 id = "message">Data Demo REST API Service</h1>
-				<p class='description'>
-				GET <a href="/data" id = "get_data">/data</a> to see all the data.
-				<br><br>
-                GET <a href="/data?category=cloud">/data?category=cloud</a> to see all of the data in the 'cloud' category.
-				<br><br>
-				GET /data/{id} retrieves a data from the DB using an ID.
-				<br><br>
-				PUT /data/{id} updates a data using an ID.
-				<br><br>
-				DELETE /data/{id} removes a data from the DB using an ID.
-				<br><br>
-				POST /data creates an new data.
-                <p>Example Data:</p>
-                <pre>
-    {
-        "name": "virtualization",
-        "category": "cloud"
-    }
+        <td>
                 </pre>
-                Try it now:
-                <form id="create_data" action="/data" method="post" enctype="application/json">
+                Welcome to Elliott Chat:
+                <form id="create_data" action="/message" method="post" enctype="application/json">
                     <input type="hidden" name="available" value="True" />
                     <div>
-                      <label for="name">What is the name of the data?</label>
-                      <input name="name" id="name" value="virtualization">
+                      <label for="name">Please enter name/username:</label>
+                      <input name="name" id="name" value="someone">
                     </div>
                     <div>
-                      <label for="category">What category is the data?</label>
-                      <input name="category" id="category" value="cloud">
+                      <input name="category" type="hidden" id="category" value=" has joined chat">
                     </div>
                     <div>
-                      <button id="submit">Create Data</button>
+                      <button id="submit">Join Chat</button>
                     </div>
                 </form>
 			</td>

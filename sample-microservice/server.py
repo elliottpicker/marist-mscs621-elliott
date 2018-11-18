@@ -30,7 +30,9 @@ POST /data/{id}/purchase - Action to purchase a Data
 import os
 import sys
 import logging
-from flask import Flask, jsonify, request, url_for, make_response, abort
+import time
+import json
+from flask import Flask, jsonify, request, url_for, make_response, abort, render_template
 from models import Data, DataValidationError
 
 # Create Flask application
@@ -109,17 +111,35 @@ def indextest():
 @app.route('/chat')
 def chat():
     """ Send back the home page """
-    return app.send_static_file('chat.html')
+    messagetxt=json.loads(list_data().get_data().decode("utf-8"))
+    return render_template('chat.html', **locals())
 
 @app.route('/translate')
 def translate():
-    """ Send back the home page """
-    return app.send_static_file('translate.html')
+    
+    """get the text of the message with msgid """
+    msgidn=request.args.get('msgid')
+    msgtxt=json.loads(get_data(msgidn).get_data().decode("utf-8"))
+    return render_template('translate.html', **locals())
+    
+@app.route('/translated')
+def translated():
+    
+    """get the text of the message with msgid """
+    msgidn=request.args.get('msgid')
+    langin=str(request.args.get('lfrom'))
+    langout=str(request.args.get('lto'))
+    msgtxt=json.loads(get_data(msgidn).get_data().decode("utf-8"))
+    trnsout="sorry not available"
+    return render_template('translated.html', **locals())    
 
 @app.route('/speak')
 def speak():
-    """ Send back the home page """
-    return app.send_static_file('speak.html')	
+    
+    """get the text of the message with msgid """
+    msgidn=request.args.get('msgid')
+    msgtxt=json.loads(get_data(msgidn).get_data().decode("utf-8"))
+    return render_template('speak.html', **locals())	
 
 ######################################################################
 # LIST ALL DATA
@@ -161,7 +181,7 @@ def get_data(data_id):
 ######################################################################
 # ADD A NEW DATA
 ######################################################################
-@app.route('/data', methods=['POST'])
+@app.route('/data', methods=['POST']) 
 def create_data():
     """
     Creates a Data
@@ -206,6 +226,7 @@ def create_message():
         app.logger.info('Processing FORM data')
         item = {
             'name': request.form['name'],
+			'timestamp': time.time(),
             'category': request.form['category'],
             'available': request.form['available'].lower() in ['true', '1', 't']
         }
@@ -217,7 +238,10 @@ def create_message():
     data.deserialize(item)
     data.save()
     message = data.serialize()
-    return app.send_static_file('chat.html')						 
+    #newmsgid = data.id
+    chatuser=request.form['name']
+    messagetxt=json.loads(list_data().get_data().decode("utf-8"))
+    return render_template('chat.html', **locals())						 
 
 ######################################################################
 # UPDATE AN EXISTING DATA

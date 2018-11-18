@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Elliott Chat - Translate</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="static/stylesheets/style.css">
+    <script src="static/javascripts/jquery-3.3.1.min.js"></script>
+  </head>
+  <body>
+  <p class='description'>
+Welcome to Elliott Chat
+<p>
+</p>
+
+ This will translate the message. <br><br>
+       <i> {{msgtxt.category}} </i> <br> <br>       
+	<form action="/translated">
+	
+    From:
+	<select name="lfrom">
+    <option value="English">English</option>
+    <option value="Spanish">Spanish</option>
+    <option value="French">French</option>
+    <option value="German">German</option>
+  </select>
+	To:
+	<select name="lto">
+    <option value="English">English</option>
+    <option value="Spanish">Spanish</option>
+    <option value="French">French</option>
+    <option value="German">German</option>
+  </select>
+	
+		<input type="hidden" name="msgid" value= {{msgtxt.id}} />
+		<input type="submit" value="Translate">
+	</form>
+		  
+  </body>
+</html>
+
+<script>
+
+
+</script>
