@@ -30,10 +30,13 @@ POST /data/{id}/purchase - Action to purchase a Data
 import os
 import sys
 import logging
+from os.path import join, dirname
 import time
 import json
+import pkg_resources
 from flask import Flask, jsonify, request, url_for, make_response, abort, render_template
 from models import Data, DataValidationError
+from watson_developer_cloud import LanguageTranslatorV3, TextToSpeechV1
 
 # Create Flask application
 app = Flask(__name__)
@@ -50,6 +53,11 @@ HTTP_204_NO_CONTENT = 204
 HTTP_400_BAD_REQUEST = 400
 HTTP_404_NOT_FOUND = 404
 HTTP_409_CONFLICT = 409
+
+#connect to bluemix service
+language_translator = LanguageTranslatorV3(version="2018-05-01",iam_apikey="zOCdlSPJlp95Mp5FuyRS9p8n71I38IuFh9rPHV2JeBN8")
+service = TextToSpeechV1(iam_apikey='PyalNFzdVXqBtZhmuWKGc24FWDKy40s2ML2ViCcJD6MU')
+
 
 ######################################################################
 # Error Handlers
@@ -127,19 +135,35 @@ def translated():
     
     """get the text of the message with msgid """
     msgidn=request.args.get('msgid')
+    msgtxt=json.loads(get_data(msgidn).get_data().decode("utf-8"))
     langin=str(request.args.get('lfrom'))
     langout=str(request.args.get('lto'))
-    msgtxt=json.loads(get_data(msgidn).get_data().decode("utf-8"))
-    trnsout="sorry not available"
+    # get the translated output
+    trnsin=(u' '+msgtxt.get("category")).encode('utf-8').strip()
+    translation = language_translator.translate(text=trnsin, model_id=langin+"-"+langout).get_result()
+    trnsout=translation.get("translations").pop().get("translation")
+    #trnsout="sorry not available"
     return render_template('translated.html', **locals())    
 
 @app.route('/speak')
 def speak():
-    
     """get the text of the message with msgid """
     msgidn=request.args.get('msgid')
     msgtxt=json.loads(get_data(msgidn).get_data().decode("utf-8"))
-    return render_template('speak.html', **locals())	
+   # #get wav file for input text
+   # with open(pkg_resources.resource_string(__name__, "output5.wav"),'wb') as audio_file:
+   # with open(join(dirname(__file__), 'output3.wav'),'w+') as audio_file:
+    with open('output5.wav','w+') as audio_file:
+        response = service.synthesize(
+            "this is a sample test", accept='audio/wav',
+            voice="en-US_AllisonVoice").get_result()
+        audio_file.write(response.content)
+    
+    return render_template('speak.html', **locals())
+
+@app.route('/speech')	
+def speeech():
+    return sendfile('output3.wav')
 
 ######################################################################
 # LIST ALL DATA

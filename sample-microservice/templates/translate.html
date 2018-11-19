@@ -20,22 +20,58 @@ Welcome to Elliott Chat
 	
     From:
 	<select name="lfrom">
-    <option value="English">English</option>
-    <option value="Spanish">Spanish</option>
-    <option value="French">French</option>
-    <option value="German">German</option>
+    <option value="en">English</option>
+    <option value="ar">Arabic</option>
+    <option value="cs">Czech</option>
+    <option value="da">Danish</option>
+    <option value="de">German</option>
+    <option value="es">Spanish</option>
+    <option value="fi">Finnish</option>
+    <option value="fr">French</option>
+    <option value="hi">Hindi</option>
+    <option value="it">Italian</option>
+    <option value="ja">Japanese</option>
+    <option value="ko">Korean</option>
+    <option value="nb">Norwegian Bokmal</option>
+    <option value="nl">Dutch</option>
+    <option value="pl">Polish</option>
+    <option value="pt">Portuguese</option>
+    <option value="ru">Russian</option>
+    <option value="sv">Swedish</option>
+    <option value="tr">Turkish</option>
+    <option value="zh">Simplified Chinese</option>
   </select>
 	To:
 	<select name="lto">
-    <option value="English">English</option>
-    <option value="Spanish">Spanish</option>
-    <option value="French">French</option>
-    <option value="German">German</option>
+    <option value="en">English</option>
+    <option value="ar">Arabic</option>
+    <option value="cs">Czech</option>
+    <option value="da">Danish</option>
+    <option value="de">German</option>
+    <option value="es">Spanish</option>
+    <option value="fi">Finnish</option>
+    <option value="fr">French</option>
+    <option value="hi">Hindi</option>
+    <option value="it">Italian</option>
+    <option value="ja">Japanese</option>
+    <option value="ko">Korean</option>
+    <option value="nb">Norwegian Bokmal</option>
+    <option value="nl">Dutch</option>
+    <option value="pl">Polish</option>
+    <option value="pt">Portuguese</option>
+    <option value="ru">Russian</option>
+    <option value="sv">Swedish</option>
+    <option value="tr">Turkish</option>
+    <option value="zh">Simplified Chinese</option>
   </select>
 	
 		<input type="hidden" name="msgid" value= {{msgtxt.id}} />
 		<input type="submit" value="Translate">
 	</form>
+    
+{%for lng in models%}
+{{models}} <br>
+{%endfor%}
 		  
   </body>
 </html>
