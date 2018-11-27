@@ -34,9 +34,10 @@ from os.path import join, dirname
 import time
 import json
 import pkg_resources
-from flask import Flask, jsonify, request, url_for, make_response, abort, render_template
+from flask import Flask, jsonify, request, url_for, make_response, abort, render_template, send_file
 from models import Data, DataValidationError
-from watson_developer_cloud import LanguageTranslatorV3, TextToSpeechV1
+from watson_developer_cloud import LanguageTranslatorV3, TextToSpeechV1, ToneAnalyzerV3
+from watson_developer_cloud.tone_analyzer_v3 import ToneInput
 
 # Create Flask application
 app = Flask(__name__)
@@ -54,9 +55,10 @@ HTTP_400_BAD_REQUEST = 400
 HTTP_404_NOT_FOUND = 404
 HTTP_409_CONFLICT = 409
 
-#connect to bluemix service
+#connect to bluemix services
 language_translator = LanguageTranslatorV3(version="2018-05-01",iam_apikey="zOCdlSPJlp95Mp5FuyRS9p8n71I38IuFh9rPHV2JeBN8")
-service = TextToSpeechV1(iam_apikey='PyalNFzdVXqBtZhmuWKGc24FWDKy40s2ML2ViCcJD6MU')
+ttsservice = TextToSpeechV1(iam_apikey='PyalNFzdVXqBtZhmuWKGc24FWDKy40s2ML2ViCcJD6MU')
+toneservice = ToneAnalyzerV3(version='2017-09-21',iam_apikey='UKUNeYDmOJErX1Q93ry146WPLwh2i0Zep0__yvCdlI6a')
 
 
 ######################################################################
@@ -130,6 +132,15 @@ def translate():
     msgtxt=json.loads(get_data(msgidn).get_data().decode("utf-8"))
     return render_template('translate.html', **locals())
     
+@app.route('/analysis')
+def analysis():
+    
+    """get the text of the message with msgid """
+    msgidn=request.args.get('msgid')
+    msgtxt=json.loads(get_data(msgidn).get_data().decode("utf-8"))
+    response=toneservice.tone(tone_input=(u' '+msgtxt.get("category")).encode('utf-8').strip(),content_type="text/plain").get_result(),                  
+    return render_template('analysis.html', **locals())
+    
 @app.route('/translated')
 def translated():
     
@@ -150,20 +161,23 @@ def speak():
     """get the text of the message with msgid """
     msgidn=request.args.get('msgid')
     msgtxt=json.loads(get_data(msgidn).get_data().decode("utf-8"))
-   # #get wav file for input text
-   # with open(pkg_resources.resource_string(__name__, "output5.wav"),'wb') as audio_file:
-   # with open(join(dirname(__file__), 'output3.wav'),'w+') as audio_file:
-    with open('output5.wav','w+') as audio_file:
-        response = service.synthesize(
-            "this is a sample test", accept='audio/wav',
+    spchin=(u' '+msgtxt.get("category")).encode('utf-8').strip()
+    dir_path=os.path.abspath("test.txt")
+    wavfilename="output6.wav"
+    with open(wavfilename,'wb') as audio_file:
+        response = ttsservice.synthesize(
+            spchin, accept='audio/wav',
             voice="en-US_AllisonVoice").get_result()
         audio_file.write(response.content)
+   
     
-    return render_template('speak.html', **locals())
+    return send_file(wavfilename,mimetype="audio/wav",as_attachment=True,attachment_filename=wavfilename)
 
-@app.route('/speech')	
-def speeech():
-    return sendfile('output3.wav')
+#@app.route('/speech')	
+#def speeech():
+#    path_to_file = "output3.wav"
+#
+#    return send_file(path_to_file,mimetype="audio/wav",as_attachment=True,attachment_filename="output3.wav")
 
 ######################################################################
 # LIST ALL DATA

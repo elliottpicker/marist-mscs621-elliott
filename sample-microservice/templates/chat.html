@@ -53,6 +53,7 @@ Welcome to Elliott Chat
 <td>
 <form action="/translate"><input type="hidden" name="msgid" value= {{msg.id}} /><input type="submit" value="Translate this message"></form>
 <form action="/speak"><input type="hidden" name="msgid" value= {{msg.id}} /><input type="submit" value="Speak this message"></form>
+<form action="/analysis"><input type="hidden" name="msgid" value= {{msg.id}} /><input type="submit" value="Analyze"></form>
 </td>
 </tr>
 {%endfor%}
@@ -60,6 +61,8 @@ Welcome to Elliott Chat
 </table>
   </body>
 </html>
+
+
 
 <script>
 //jQuery.fn.reverse = [].reverse;

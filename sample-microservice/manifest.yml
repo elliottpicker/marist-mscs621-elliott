@@ -1,7 +1,7 @@
 ---
 # This manifest deploys a Python Flask application with a Redis database
 applications:
-- name: nyu-lab-bluemix
+- name: nyu-lab-bluemix-ep
   memory: 64M
   instances: 2
   #random-route: true

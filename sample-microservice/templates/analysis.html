@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Elliott Chat - Translate</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="static/stylesheets/style.css">
+    <script src="static/javascripts/jquery-3.3.1.min.js"></script>
+  </head>
+  <body>
+  <p class='description'>
+Welcome to Elliott Chat
+<p>
+</p>
+
+ This will do analysis.
+              
+Message:              
+{{msgtxt.category}}
+
+	<br><br>
+    
+    <table>
+    <thead><tr><th width="60%">Sentence</th><th width="25%">Sentiment</th><th width="15%">Strength</th></tr></thead>
+    
+    
+    
+<tr><td>Overall Response</td><td></td><td></td></tr>
+    	<br><br>
+        {%for tone in response[0].document_tone.tones%}
+        <tr><td></td><td>
+        {{tone.tone_name}}
+        </td><td>
+         {{tone.score*100}}  %
+         </td></tr>
+        {%endfor%}
+    
+    
+    
+    <br><br>
+    <tr>Sentence breakdown</tr>
+
+    <br><br>
+        {%for sentence in response[0].sentences_tone%}
+        <tr><td>
+        {{sentence.text}}
+        </td><td></td></td></td>
+        </tr>
+        
+        
+       
+               {%for tone in sentence.tones%}
+               <tr><td></td><td>
+                    {{tone.tone_name}}
+                      </td><td>
+                    {{tone.score*100}}  %
+                        </td></tr>
+                {%endfor%}
+        {%endfor%}
+        </table>
+			  
+  </body>
+</html>
+
+<script>
+
+
+</script>
