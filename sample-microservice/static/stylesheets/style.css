@@ -17,23 +17,64 @@
 /* style.css
  * This file provides css styles.
  */
+ /* dropddown******************************************************************/
+ /* Dropdown Button */
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
 
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #4CAF50;
+    font-size: 8px;
+    z-index: 1;  
+}
+
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #008855;} 
+/*dropddown******************************************************************/
+
+input[type=text] {
+    border: 2px solid red;
+    border-radius: 4px;
+}
+
+input[type=button], input[type=submit] {
+    background-color: #4CAF50;
+    border: 1px solid #003320;
+    border-radius: 2px;
+    color: white;
+    padding: 5px 8px;
+    text-decoration: none;
+    font-size: 12px;
+    margin: 2px 1px;
+    cursor: pointer;
+}
 body,html {
-	background-color: #3b4b54; width : 100%;
+	background-color: #33aa66; width : 100%;
 	height: 100%;
 	margin: 0 auto;
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-	color: #ffffff;
+	font: "palatino";
+	color: #773377;
 }
 
-a {
-	text-decoration: none;
-	color: #00aed1;
-}
-
-a:hover {
-	text-decoration: underline;
-}
 
 .newappIcon {
 	padding-top: 10%;
@@ -72,8 +113,10 @@ table {
 	table-layout: fixed;
 	width: 800px;
 	margin: 0 auto;
+    border: 1px solid #003320;
 	word-wrap: break-word;
-	padding-top:10%;
+	padding-top:1%;
+    background-color: #a0cca8;
 }
 
 th {

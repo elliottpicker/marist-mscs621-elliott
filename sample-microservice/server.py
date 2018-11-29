@@ -132,6 +132,21 @@ def translate():
     msgtxt=json.loads(get_data(msgidn).get_data().decode("utf-8"))
     return render_template('translate.html', **locals())
     
+@app.route('/detect')   
+def detect():
+    
+    """get the text of the message with msgid """
+    msgidn=request.args.get('msgid')
+    msgtxt=json.loads(get_data(msgidn).get_data().decode("utf-8"))
+    detin=(u' '+msgtxt.get("category")).encode('utf-8').strip()
+    detresp=language_translator.identify(detin).get_result().get("languages")[0]
+    dectlang=convlang(detresp.get("language"))
+    dectconf=detresp.get("confidence")
+    
+
+    return render_template('detected.html', **locals())    
+    
+    
 @app.route('/analysis')
 def analysis():
     
@@ -163,21 +178,58 @@ def speak():
     msgtxt=json.loads(get_data(msgidn).get_data().decode("utf-8"))
     spchin=(u' '+msgtxt.get("category")).encode('utf-8').strip()
     dir_path=os.path.abspath("test.txt")
-    wavfilename="output6.wav"
+    wavfilename="output"+msgidn+".wav"
     with open(wavfilename,'wb') as audio_file:
         response = ttsservice.synthesize(
             spchin, accept='audio/wav',
-            voice="en-US_AllisonVoice").get_result()
+            voice="en-US_LisaVoice").get_result()
         audio_file.write(response.content)
    
     
     return send_file(wavfilename,mimetype="audio/wav",as_attachment=True,attachment_filename=wavfilename)
 
-#@app.route('/speech')	
-#def speeech():
-#    path_to_file = "output3.wav"
-#
-#    return send_file(path_to_file,mimetype="audio/wav",as_attachment=True,attachment_filename="output3.wav")
+def convlang(inlang):
+    if inlang == "en":
+        return "English"     
+    if inlang == "ar":
+        return "Arabic"
+    if inlang == "cs":
+        return "Czech"
+    if inlang == "da":
+        return "Danish"
+    if inlang == "de":
+        return "German"
+    if inlang == "es":
+        return "Spanish"
+    if inlang == "fi":
+        return "Finnish"
+    if inlang == "fr":
+        return "French"
+    if inlang == "hi":
+        return "Hindi"
+    if inlang == "it":
+        return "Italian"
+    if inlang == "ja":
+        return "Japanese"
+    if inlang == "ko":
+        return "Korean"
+    if inlang == "nb":
+        return "Norwegian Bokmal"
+    if inlang == "nl":
+        return "Dutch"
+    if inlang == "pl":
+        return "Polish"
+    if inlang == "pt":
+        return "Portuguese"
+    if inlang == "ru":
+        return "Russian"
+    if inlang == "sv":
+        return "Swedish"
+    if inlang == "tr":
+        return "Turkish"
+    if inlang=="zh":
+        return "Simplified Chinese"
+    return "unknown language"
 
 ######################################################################
 # LIST ALL DATA

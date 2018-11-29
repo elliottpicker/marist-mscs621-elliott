@@ -22,11 +22,10 @@ Message:
 	<br><br>
     
     <table>
-    <thead><tr><th width="60%">Sentence</th><th width="25%">Sentiment</th><th width="15%">Strength</th></tr></thead>
+    <thead><tr><th width="60%">Overall Response</th><th width="25%">Sentiment</th><th width="15%">Strength</th></tr></thead>
     
     
     
-<tr><td>Overall Response</td><td></td><td></td></tr>
     	<br><br>
         {%for tone in response[0].document_tone.tones%}
         <tr><td></td><td>
@@ -37,10 +36,10 @@ Message:
         {%endfor%}
     
     
-    
+    </table><table>
     <br><br>
-    <tr>Sentence breakdown</tr>
-
+    <tr><td>Sentence breakdown</td><td></td><td></td></tr>
+    <thead><tr><th width="60%">Sentence</th><th width="25%">Sentiment</th><th width="15%">Strength</th></tr></thead>
     <br><br>
         {%for sentence in response[0].sentences_tone%}
         <tr><td>
@@ -61,6 +60,10 @@ Message:
         </table>
 			  
   </body>
+  <br>
+ <form>
+  <input type="button" value="Go back!" onclick="history.back()">
+</form>
 </html>
 
 <script>

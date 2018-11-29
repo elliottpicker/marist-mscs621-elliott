@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Elliott Chat - Translate</title>
+    <title>Elliott Chat - Language detect</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,13 +14,15 @@ Welcome to Elliott Chat
 <p>
 </p>
 
+ This message. <br><br>
+       <i> {{msgtxt.category}} </i> <br> <br>      
+is in the language:        
+{{dectlang}} with a confidence of {{dectconf*100}} %
 
-   {{msgtxt.category}}      translated from {{langin}} to {{langout}} is:  {{trnsout}} 
-	
   <br>
  <form>
   <input type="button" value="Go back!" onclick="history.back()">
-</form>		  
+</form>
   </body>
 </html>
 
