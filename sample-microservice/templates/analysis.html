@@ -17,14 +17,17 @@ Welcome to Elliott Chat
  This will do analysis.
               
 Message:              
-{{msgtxt.text}}
+
 
 	<br><br>
     
     <table>
     <thead><tr><th width="60%">Overall Response</th><th width="25%">Sentiment</th><th width="15%">Strength</th></tr></thead>
     
-    
+        <tr><td>
+        {{msgtxt.text}}
+        </td><td></td></td></td>
+        </tr>
     
     	<br><br>
         {%for tone in response[0].document_tone.tones%}
