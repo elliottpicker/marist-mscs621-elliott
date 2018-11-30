@@ -118,10 +118,11 @@ def indextest():
     """ Send back the home page """
     return app.send_static_file('indextest.html')	
 	
-@app.route('/chat')
+@app.route('/chat', methods=['POST'])
 def chat():
     """ Send back the home page """
-    messagetxt=json.loads(list_data().get_data().decode("utf-8"))
+    chatuser=request.form['name']
+    messages=sorted(json.loads(list_data().get_data().decode("utf-8")),reverse=True)
     return render_template('chat.html', **locals())
 
 @app.route('/translate')
@@ -138,7 +139,7 @@ def detect():
     """get the text of the message with msgid """
     msgidn=request.args.get('msgid')
     msgtxt=json.loads(get_data(msgidn).get_data().decode("utf-8"))
-    detin=(u' '+msgtxt.get("category")).encode('utf-8').strip()
+    detin=(u' '+msgtxt.get("text")).encode('utf-8').strip()
     detresp=language_translator.identify(detin).get_result().get("languages")[0]
     dectlang=convlang(detresp.get("language"))
     dectconf=detresp.get("confidence")
@@ -153,7 +154,7 @@ def analysis():
     """get the text of the message with msgid """
     msgidn=request.args.get('msgid')
     msgtxt=json.loads(get_data(msgidn).get_data().decode("utf-8"))
-    response=toneservice.tone(tone_input=(u' '+msgtxt.get("category")).encode('utf-8').strip(),content_type="text/plain").get_result(),                  
+    response=toneservice.tone(tone_input=(u' '+msgtxt.get("text")).encode('utf-8').strip(),content_type="text/plain").get_result(),                  
     return render_template('analysis.html', **locals())
     
 @app.route('/translated')
@@ -165,9 +166,12 @@ def translated():
     langin=str(request.args.get('lfrom'))
     langout=str(request.args.get('lto'))
     # get the translated output
-    trnsin=(u' '+msgtxt.get("category")).encode('utf-8').strip()
+    trnsin=(u' '+msgtxt.get("text")).encode('utf-8').strip()
     translation = language_translator.translate(text=trnsin, model_id=langin+"-"+langout).get_result()
     trnsout=translation.get("translations").pop().get("translation")
+    # convert languages from 2 letters to full language
+    langin=convlang(langin)
+    langout=convlang(langout)
     #trnsout="sorry not available"
     return render_template('translated.html', **locals())    
 
@@ -176,7 +180,7 @@ def speak():
     """get the text of the message with msgid """
     msgidn=request.args.get('msgid')
     msgtxt=json.loads(get_data(msgidn).get_data().decode("utf-8"))
-    spchin=(u' '+msgtxt.get("category")).encode('utf-8').strip()
+    spchin=(u' '+msgtxt.get("text")).encode('utf-8').strip()
     dir_path=os.path.abspath("test.txt")
     wavfilename="output"+msgidn+".wav"
     with open(wavfilename,'wb') as audio_file:
@@ -238,11 +242,11 @@ def convlang(inlang):
 def list_data():
     """ Returns all of the Datas """
     datas = []
-    category = request.args.get('category')
+    text = request.args.get('text')
     name = request.args.get('name')
     available = request.args.get('available')
-    if category:
-        datas = Data.find_by_category(category)
+    if text:
+        datas = Data.find_by_text(text)
     elif name:
         datas = Data.find_by_name(name)
     elif available:
@@ -285,7 +289,7 @@ def create_data():
         app.logger.info('Processing FORM data')
         item = {
             'name': request.form['name'],
-            'category': request.form['category'],
+            'text': request.form['text'],
             'available': request.form['available'].lower() in ['true', '1', 't']
         }
     else:
@@ -317,7 +321,7 @@ def create_message():
         item = {
             'name': request.form['name'],
 			'timestamp': time.time(),
-            'category': request.form['category'],
+            'text': request.form['text'],
             'available': request.form['available'].lower() in ['true', '1', 't']
         }
     else:
@@ -328,9 +332,8 @@ def create_message():
     data.deserialize(item)
     data.save()
     message = data.serialize()
-    #newmsgid = data.id
     chatuser=request.form['name']
-    messagetxt=json.loads(list_data().get_data().decode("utf-8"))
+    messages=sorted(json.loads(list_data().get_data().decode("utf-8")),reverse=True)
     return render_template('chat.html', **locals())						 
 
 ######################################################################
@@ -395,7 +398,7 @@ def init_db(redis=None):
 # load sample data
 def data_load(payload):
     """ Loads a Data into the database """
-    data = Data(0, payload['name'], payload['category'])
+    data = Data(0, payload['name'], payload['text'])
     data.save()
 
 def data_reset():

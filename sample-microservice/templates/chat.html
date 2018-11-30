@@ -10,34 +10,41 @@
   </head>
   <body>
   <p>
-<center>Welcome to Elliott Chat</center>
-<p>
+<font size=5><center>Welcome to Elliott Chat</center></font>
 </p>
 
-                
+                <form id="refresh" action="/chat" method="post" enctype="application/json">
+                    <input type="hidden" name="available" value="True" />
+                    <input type="hidden" name="name" id="name" value="{{chatuser}}">                
+                  <center>  <input type="submit" value="Refresh"> </center>
+                </form>                
                
 <table>
-<thead><tr><th width="25%">User:</th><th width="60%">Message:</th><th width="15%">Actions</th></tr></thead>
+<thead><tr><th width="20%"> </th><th width="15%">User:</th><th width="50%">Message:</th><th width="15%">Actions</th></tr></thead>
 <tbody>
 <tr bgcolor=#80ac90>
                 <form id="create_data" action="/message" method="post" enctype="application/json">
                     <input type="hidden" name="available" value="True" />
                     <input type="hidden" name="name" id="name" value="{{chatuser}}">
-                      
+    <td><font color="red">New Message</font></td>                  
     <td>{{chatuser}}</td>
-    <td><input name="category" id="category" value="Hello there!" rows="4"></td>
+    <td><input name="text" id="text" value="Hello there!" rows="4"></td>
     <td><input type="submit" value="Send message"></td>
     </form>
 
 </tr>
 
-{%for msg in messagetxt%}
+
+{%for msg in messages%}
 <tr>
 	<td>
-{{msg.name}}
+ <font size=2> {{msg.timestamp}} </font>
+    </td>
+    <td>
+    {{msg.name}}
 </td>
 <td>
-{{msg.category}}
+{{msg.text}}
 </td>	
 <td>
 
@@ -67,18 +74,18 @@
 //	//	$("body").append("<td>");
 //	//	$('body').append($('<b>', {text: element.name}));
 //	//	$("body").append("</td><td>");
-//	//	$('body').append($('<i>', {text: element.category}));
+//	//	$('body').append($('<i>', {text: element.text}));
 //		
 //	//	$("p").append("<b><a href='/chat'>translate this message</a></b><b><a href='/chat'>speak this message</a></b></td></tr><tr>");
 //	//	$("body").append("</b><br><br>");
 //	
 //	        var $tr = $('<tr>').append(
 //            $('<td>').text(element.name),
-//            $('<td>').text(element.category),
+//            $('<td>').text(element.text),
 //			$('<td>').text(element.timestamp),
 //			//"<td> <a href='/translate?id=elliott'>translate this message</a></td><td><a href='/speak'>speak this message</a></td>"
 //			
-//			'<td><form action="/translate"><input type="hidden" name="msgtext" value='+element.category+' /><input type="submit" value="Translate this message"></form></td>'
+//			'<td><form action="/translate"><input type="hidden" name="msgtext" value='+element.text+' /><input type="submit" value="Translate this message"></form></td>'
 //			
 //			
 //			

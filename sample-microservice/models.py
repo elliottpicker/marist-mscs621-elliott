@@ -27,6 +27,7 @@ import os
 import json
 import logging
 import pickle
+import time
 from redis import Redis
 from redis.exceptions import ConnectionError
 
@@ -40,11 +41,12 @@ class Data(object):
     logger = logging.getLogger(__name__)
     redis = None
 
-    def __init__(self, id=0, name=None, category=None, available=True):
+    def __init__(self, id=0,timestamp=None, name=None, text=None, available=True):
         """ Constructor """
         self.id = int(id)
+        self.timestamp=u''+time.strftime("%m-%d-%Y %H:%M:%S")
         self.name = name
-        self.category = category
+        self.text = text
         self.available = available
 
     def save(self):
@@ -53,6 +55,7 @@ class Data(object):
             raise DataValidationError('name attribute is not set')
         if self.id == 0:
             self.id = Data.__next_index()
+            self.timestamp=u''+time.strftime("%m-%d-%Y %H:%M:%S")
         Data.redis.set(self.id, pickle.dumps(self.serialize()))
 
     def delete(self):
@@ -64,7 +67,8 @@ class Data(object):
         return {
             "id": self.id,
             "name": self.name,
-            "category": self.category,
+            "timestamp": self.timestamp,
+            "text": self.text,
             "available": self.available
         }
 
@@ -72,7 +76,8 @@ class Data(object):
         """ deserializes a Data my marshalling the data """
         try:
             self.name = data['name']
-            self.category = data['category']
+            self.timestamp=data['timestamp']
+            self.text = data['text']
             self.available = data['available']
         except KeyError as error:
             raise DataValidationError('Invalid data: missing ' + error.args[0])
@@ -148,9 +153,9 @@ class Data(object):
         return Data.__find_by('name', name)
 
     @staticmethod
-    def find_by_category(category):
-        """ Query that finds Datas by their category """
-        return Data.__find_by('category', category)
+    def find_by_text(text):
+        """ Query that finds Datas by their text """
+        return Data.__find_by('text', text)
 
     @staticmethod
     def find_by_availability(available=True):
