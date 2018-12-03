@@ -17,7 +17,6 @@
 /* style.css
  * This file provides css styles.
  */
- /* dropddown******************************************************************/
  /* Dropdown Button */
 .dropbtn {
     background-color: #4CAF50;
@@ -26,7 +25,6 @@
     font-size: 16px;
     border: none;
 }
-
 
 
 .dropdown {
@@ -42,14 +40,10 @@
     font-size: 8px;
     z-index: 1;  
 }
-
-
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
-
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: #008855;} 
-/*dropddown******************************************************************/
 
 input[type=text] {
     border: 2px solid red;

@@ -172,7 +172,6 @@ def translated():
     # convert languages from 2 letters to full language
     langin=convlang(langin)
     langout=convlang(langout)
-    #trnsout="sorry not available"
     return render_template('translated.html', **locals())    
 
 @app.route('/speak')
@@ -192,6 +191,7 @@ def speak():
     
     return send_file(wavfilename,mimetype="audio/wav",as_attachment=True,attachment_filename=wavfilename)
 
+# converts 2 letter abbreviations used by language translator services
 def convlang(inlang):
     if inlang == "en":
         return "English"     
