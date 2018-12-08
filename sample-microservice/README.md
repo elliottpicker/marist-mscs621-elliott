@@ -35,7 +35,7 @@ When you are done, you can use the following command to remmove the containers:
     $ docker-compose kill
     $ docker-compose rm
 ```
-![deployment diagram](http://url/to/img.png)
+![deployment diagram](https://github.com/elliottpicker/marist-mscs621-elliott/blob/master/sample-microservice/static/images/diagram.jpg)
 
 ## Structure of application
 
