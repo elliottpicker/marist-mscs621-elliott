@@ -17,7 +17,6 @@ The code can be deployed in any host with docker engine with docker-compose inst
 
 Follow the steps below to manually deploy the Elliottchat server.
 
-
 ## Get the code
 
 ```bash
