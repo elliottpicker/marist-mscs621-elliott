@@ -1,11 +1,13 @@
 # Elliottchat
-Elliott chat is a message board service where users can post messages for other viewers to see and respond to. Chat offers features such as language detection, language translation, text to speech, and watson analyze.
+Elliott chat is a message board service where users can post messages for other viewers to see and respond to. Chat offers features such as language detection, language translation, text to speech, and watson analyze. All chat is in one main chat stream as opposed to multiple diverging threads. This offers a more classic chat room feel, and is usable for a small group of contributors.
 
 This repository is based on assignment for the *Marist Cloud Computing* class for Fall 2018, available at https://github.com/jinho10/marist-mscs621.git. Portions of this project are borrowed heavily from that project.
 
+
+
 The code uses [Flask microframework](http://flask.pocoo.org/) for web requests, [Redis](https://redis.io) as a database for storing JSON objects, and [IBM Watson Developer Cloud](https://www.ibm.com/watson/developercloud/) for its various services.
 
-The code can be deployed in any host with docker engine using docker command or docker-compose command. 
+The code can be deployed in any host with docker engine with docker-compose installed. 
 
 
 
@@ -16,13 +18,16 @@ Follow the steps below to manually deploy the Elliottchat server.
 
 ```bash
     $ git clone https://github.com/elliottpicker/marist-mscs621-elliott.git
-    $ cd marist-mscs621/unit-4
+    $ cd marist-mscs621-elliott/sample-microservice
     $ docker-compose build
     $ docker-compose up -d
 ```
 This will run the sample code as containers.
 
-You should be able to login to elliottchat at http://localhost:5000/ from your browser 
+You should be able to login to elliottchat at http://localhost:5000/ from your browser .
+From there you can explore the features of Elliottchat.
+However, at the end of this course the bluemix services will be deactivated.
+To use the services new iam_apikey's will need to be provided.
 
 
 When you are done, you can use the following command to remmove the containers:
@@ -30,7 +35,7 @@ When you are done, you can use the following command to remmove the containers:
     $ docker-compose kill
     $ docker-compose rm
 ```
-
+![deployment diagram](http://url/to/img.png)
 
 ## Structure of application
 
