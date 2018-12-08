@@ -1,11 +1,15 @@
 # Elliottchat
-Elliott chat is a message board service where users can post messages for other viewers to see and respond to. Chat offers features such as language detection, language translation, text to speech, and watson analyze. All chat is in one main chat stream as opposed to multiple diverging threads. This offers a more classic chat room feel, and is usable for a small group of contributors.
+Elliott chat is a message board service where users can post messages for other viewers to see and respond to. Chat offers features such as language detection, language translation, text to speech, and watson analyze. All chat is communicated one main chat stream as opposed to multiple diverging threads. This offers a more classic chat room feel, and is usable for a small group of contributors who want to stay current with all messages exchanged. Because it is lightweight users can join the chat from any platform or browser and join the chat quite easily and quickly.
+
+
 
 This repository is based on assignment for the *Marist Cloud Computing* class for Fall 2018, available at https://github.com/jinho10/marist-mscs621.git. Portions of this project are borrowed heavily from that project.
 
 
 
 The code uses [Flask microframework](http://flask.pocoo.org/) for web requests, [Redis](https://redis.io) as a database for storing JSON objects, and [IBM Watson Developer Cloud](https://www.ibm.com/watson/developercloud/) for its various services.
+
+Using the Flask framework, server.py program is able to route http requests and use the html templates to host the chat server. As html forms are submitted, methods in server.py gain control and provide the various functions. When a new message is written the create_message() method gets control and stores a message into the Redis database. Additional messages can be enterred or one of the actions can be taken against an existing message. When an action is requested against the message, the appropriate function will be passed the message id of the message requested. The function will query the message, and make use of the packages included in watson_developer_cloud to get some output to return to the user through a pre-built html template file.
 
 The code can be deployed in any host with docker engine with docker-compose installed. 
 
