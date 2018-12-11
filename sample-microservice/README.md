@@ -41,7 +41,6 @@ When you are done, you can use the following command to remmove the containers:
 ![deployment diagram](https://github.com/elliottpicker/marist-mscs621-elliott/blob/master/sample-microservice/static/images/diagram.jpg)
 ![deployment diagram](https://github.com/elliottpicker/marist-mscs621-elliott/blob/master/sample-microservice/static/images/diagpart1.JPG)
 ![deployment diagram](https://github.com/elliottpicker/marist-mscs621-elliott/blob/master/sample-microservice/static/images/diagpart2.JPG)
-![deployment diagram](https://github.com/elliottpicker/marist-mscs621-elliott/blob/master/sample-microservice/static/images/diagpart3.JPG)
 
 ## Structure of application
 
