@@ -39,9 +39,9 @@ When you are done, you can use the following command to remmove the containers:
     $ docker-compose rm
 ```
 ![deployment diagram](https://github.com/elliottpicker/marist-mscs621-elliott/blob/master/sample-microservice/static/images/diagram.jpg)
-![deployment diagram](https://github.com/elliottpicker/marist-mscs621-elliott/blob/master/sample-microservice/static/images/diagpart1.jpg)
-![deployment diagram](https://github.com/elliottpicker/marist-mscs621-elliott/blob/master/sample-microservice/static/images/diagpart2.jpg)
-![deployment diagram](https://github.com/elliottpicker/marist-mscs621-elliott/blob/master/sample-microservice/static/images/diagpart3.jpg)
+![deployment diagram](https://github.com/elliottpicker/marist-mscs621-elliott/blob/master/sample-microservice/static/images/diagpart1.JPG)
+![deployment diagram](https://github.com/elliottpicker/marist-mscs621-elliott/blob/master/sample-microservice/static/images/diagpart2.JPG)
+![deployment diagram](https://github.com/elliottpicker/marist-mscs621-elliott/blob/master/sample-microservice/static/images/diagpart3.JPG)
 
 ## Structure of application
 
