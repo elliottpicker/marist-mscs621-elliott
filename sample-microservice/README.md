@@ -39,16 +39,19 @@ When you are done, you can use the following command to remmove the containers:
     $ docker-compose rm
 ```
 ![deployment diagram](https://github.com/elliottpicker/marist-mscs621-elliott/blob/master/sample-microservice/static/images/diagram.jpg)
+![deployment diagram](https://github.com/elliottpicker/marist-mscs621-elliott/blob/master/sample-microservice/static/images/diagpart1.jpg)
+![deployment diagram](https://github.com/elliottpicker/marist-mscs621-elliott/blob/master/sample-microservice/static/images/diagpart2.jpg)
+![deployment diagram](https://github.com/elliottpicker/marist-mscs621-elliott/blob/master/sample-microservice/static/images/diagpart3.jpg)
 
 ## Structure of application
 
-**requirements.txt** - Contains the external python packages that are required by the application. These will be downloaded from the [python package index](https://pypi.python.org/pypi/) and installed via the python package installer (pip) during the buildpack's compile stage when you execute the cf push command. In this sample case we wish to download the [Flask package](https://pypi.python.org/pypi/Flask) at version 0.12, [Redis package](https://pypi.python.org/pypi/Redis) at version greater than or equal to 2.10 and watson-developer-cloud at a version greater than or equal to 2.4.1.
+**requirements.txt** - Contains the external python packages that are required by the application. These will be downloaded from the [python package index](https://pypi.python.org/pypi/) and installed via the python package installer (pip) during the buildpack's compile stage when you execute the cf push command. In this sample case we wish to download the [Flask package](https://pypi.python.org/pypi/Flask) at version 0.12, [Redis package](https://pypi.python.org/pypi/Redis) at version greater than or equal to 2.10 and [IBM Watson Python SDK](https://github.com/watson-developer-cloud/python-sdk) at a version greater than or equal to 2.4.1.
 
 **runtime.txt** - Controls which python runtime to use. In this case we want to use 2.7.9.
 
 **README.md** - this readme.
 
-**manifest.yml** - Controls how the app will be deployed in Bluemix and specifies memory and other services like Redis that are needed to be bound to it.
+**manifest.yml** - Controls how the app will be deployed and specifies memory and other services like Redis that are needed to be bound to it.
 
 **server.py** - the python application script. This is implemented as a simple [Flask](http://flask.pocoo.org/) application. The routes are defined in the application using the @app.route() calls. This application has a `/` route that iniates the initial login. From there multiple routes provide various services to make the elliottchat service possible.
 ```
